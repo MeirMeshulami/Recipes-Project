@@ -1,0 +1,49 @@
+*{
+    padding:0;
+    margin: 0;   
+}
+.logo{
+    height: 60px;
+    width: 60px;
+    margin-right: 15px;
+}
+.navbar{
+    background-color: #F3EEEA;
+}
+.navbar-brand{
+    font-size: 30px;  
+}
+.custom-search-input{
+    width: 40%;
+}
+.left-menu{
+    min-height: 100vh;
+    background-color: #EBE3D5;
+}
+.navbar-brand img{
+    border-radius: 50px;    
+}
+.logo-title{
+    font-family: pacifico;
+    margin: 0px;
+}
+span{
+    color:rgb(235, 88, 64);
+}
+.card-img-top {
+    width: 30%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+}
+.card img{
+    border-radius: 100%;    
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+.card{
+    border: none;
+    background-color: #F3EEEA;
+    border-radius: 0px;
+}
+.card-body p{
+    font-size: 15px;
+}
