@@ -31,13 +31,17 @@ span{
     color:rgb(235, 88, 64);
 }
 .card-img-top {
-    width: 30%; /* Adjust the width as needed */
-    height: auto; /* Maintain the aspect ratio */
+    width: 30%; 
+    height: auto; 
+}
+.main-title{
+    font-size: 1rem;
+    color: #f38e82;
 }
 .card img{
-    border-radius: 100%;    
+    border-radius: 50px;    
     margin-right: 20px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 .card{
     border: none;

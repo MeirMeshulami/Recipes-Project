@@ -1,38 +1,40 @@
-const searchBtn = document.querySelector('.search-btn');
-const textBox = document.querySelector(".search-box");
-const leftMenu = document.querySelector(".left-menu");
 
+// Function to create a recipe card
 function createRecipeCard(recipe) {
-    // Create a button element instead of a div
     const card = document.createElement("button");
     card.classList.add("card", "recipe-card", "btn");
 
-    // Create a card body
     const cardBody = document.createElement("div");
     cardBody.classList.add("card-body", "d-flex");
 
-    // Create an image element
     const img = document.createElement("img");
     img.src = recipe.image;
     img.alt = recipe.title;
-    img.classList.add("card-img-top"); // Adjust size and margin
+    img.classList.add("card-img-top");
 
-    // Create a title element
-    const title = document.createElement("p");
-    title.classList.add("card-title");
-    title.textContent = recipe.title;
+    const textDiv = document.createElement("div");
+    textDiv.classList.add("preview-text");
 
-    // Append elements to the card body
+    const mainTitle = document.createElement("h4");
+    mainTitle.classList.add("main-title");
+    mainTitle.textContent = recipe.title;
+
+    const secondTitle = document.createElement("p");
+    secondTitle.classList.add("second-title");
+
+    textDiv.appendChild(mainTitle);
+    textDiv.appendChild(secondTitle);
     cardBody.appendChild(img);
-    cardBody.appendChild(title);
+    cardBody.appendChild(textDiv);
 
-    // Append the card body to the card
     card.appendChild(cardBody);
-
-    // Append the card to the left-menu
     leftMenu.appendChild(card);
+
+    card.setAttribute('data-image', recipe.image);
+    card.setAttribute('data-id', recipe.id);
 }
 
+// Function to handle the fetch and create cards
 function getResults(event) {
     event.preventDefault();
 
@@ -42,17 +44,12 @@ function getResults(event) {
     fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchText}`)
         .then(res => res.json())
         .then(data => {
-            // Clear previous search results
-            leftMenu.innerHTML = "";
+            leftMenu.innerHTML = ""; 
 
-            // Check if there are results
             if (data.results && data.results.length > 0) {
-                // Iterate through each result and create a card
-                data.results.forEach(recipe => {
-                    createRecipeCard(recipe);
-                });
+                data.results.forEach(createRecipeCard);
+                // import('./content.js'); 
             } else {
-                // Display a message if no results are found
                 leftMenu.innerHTML = "<p>No results found</p>";
             }
         })
@@ -60,5 +57,9 @@ function getResults(event) {
             console.error('Error fetching data:', error);
         });
 }
+
+const searchBtn = document.querySelector('.search-btn');
+const textBox = document.querySelector(".search-box");
+const leftMenu = document.querySelector(".left-menu");
 
 searchBtn.addEventListener('click', getResults);
