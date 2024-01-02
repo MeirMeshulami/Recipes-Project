@@ -1,6 +1,6 @@
+import { leftMenu } from "./main";
 
-// Function to create a recipe card
-function createRecipeCard(recipe) {
+export function createRecipeCard(recipe) {
     const card = document.createElement("button");
     card.classList.add("card", "recipe-card", "btn");
 
@@ -32,34 +32,23 @@ function createRecipeCard(recipe) {
 
     card.setAttribute('data-image', recipe.image);
     card.setAttribute('data-id', recipe.id);
+    card.addEventListener('click', () => getRecipeInformation(recipe.id, recipe.image));
 }
 
-// Function to handle the fetch and create cards
-function getResults(event) {
-    event.preventDefault();
-
-    const apiKey = 'e4e6e391a4984608ad5372d5becfb4bc';
-    const searchText = textBox.value;
-
-    fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchText}`)
+export function getRecipeInformation(foodID, foodImage) {
+    const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
+    // Fetch and display detailed recipe information
+    fetch(`https://api.spoonacular.com/recipes/${foodID}/information?apiKey=${apiKey}`)
         .then(res => res.json())
         .then(data => {
-            leftMenu.innerHTML = ""; 
-
-            if (data.results && data.results.length > 0) {
-                data.results.forEach(createRecipeCard);
-                // import('./content.js'); 
-            } else {
-                leftMenu.innerHTML = "<p>No results found</p>";
-            }
+            // Handle the detailed recipe information
+            console.log('Detailed Recipe Information:', data);
+            // Now you have access to the detailed recipe information
+            // Do whatever you need with this data, such as displaying it on the page
+            // Example: Display detailed information in the main content area
+            mainContent.innerHTML = `<h2>${data.title}</h2><p>${data.instructions}</p>`;
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching detailed recipe information:', error);
         });
 }
-
-const searchBtn = document.querySelector('.search-btn');
-const textBox = document.querySelector(".search-box");
-const leftMenu = document.querySelector(".left-menu");
-
-searchBtn.addEventListener('click', getResults);
