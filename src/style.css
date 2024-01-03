@@ -1,7 +1,7 @@
-*{
+/* *{
     padding:0;
     margin: 0;   
-}
+} */
 .logo{
     height: 60px;
     width: 60px;
@@ -31,8 +31,8 @@ span{
     color:rgb(235, 88, 64);
 }
 .card-img-top {
-    width: 30%; 
-    height: auto; 
+    width: 70px; 
+    height: 70px; 
 }
 .main-title{
     font-size: 1rem;
@@ -41,13 +41,30 @@ span{
 .card img{
     border-radius: 50px;    
     margin-right: 20px;
-    /* margin-bottom: 5px; */
 }
 .card{
     border: none;
     background-color: #F3EEEA;
     border-radius: 0px;
+    width: 100%;
 }
 .card-body p{
     font-size: 15px;
 }
+.main-img{
+    width: 100%;
+    height: 300px;
+    opacity: 80%;
+    filter:  contrast(0.7)  ;
+}
+h1,h5{
+    text-align: center;
+    color: #f38e82;
+}
+.list-group-item {
+    border: none;
+}
+.list-container{
+    padding: 10px 50px;
+}
+

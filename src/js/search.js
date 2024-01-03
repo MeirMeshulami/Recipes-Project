@@ -1,3 +1,5 @@
+import {leftMenu} from './recipes';
+
 export function getResults(searchText, createRecipeCard, getRecipeInformation) {
     const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
 
@@ -5,7 +7,6 @@ export function getResults(searchText, createRecipeCard, getRecipeInformation) {
         .then(res => res.json())
         .then(data => {
             leftMenu.innerHTML = "";
-            console.log(data.results);
             if (data.results && data.results.length > 0) {
                 data.results.forEach(recipe => {
                     createRecipeCard(recipe);
