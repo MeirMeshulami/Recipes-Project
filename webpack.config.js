@@ -6,5 +6,6 @@ module.exports = {
         filename: 'bundle.js', 
         path: path.resolve(__dirname, 'dist') 
     },
+    mode: 'development'
     // Add other necessary loaders and plugins here
 };

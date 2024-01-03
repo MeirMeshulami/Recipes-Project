@@ -1,14 +1,11 @@
+export function getResults(searchText, createRecipeCard, getRecipeInformation) {
+    const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
 
-export function getResults(searchText, createRecipeCard, getRecipeInformation) { 
-    const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';   
-    const apiUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchText}`;
-    console.log('Fetching data from:', apiUrl);
-
-    fetch(apiUrl)
+    window.fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchText}`)
         .then(res => res.json())
         .then(data => {
-            leftMenu.innerHTML = ""; 
-
+            leftMenu.innerHTML = "";
+            console.log(data.results);
             if (data.results && data.results.length > 0) {
                 data.results.forEach(recipe => {
                     createRecipeCard(recipe);
@@ -21,3 +18,6 @@ export function getResults(searchText, createRecipeCard, getRecipeInformation) {
             console.error('Error fetching data:', error);
         });
 }
+
+
+
