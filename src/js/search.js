@@ -1,9 +1,8 @@
-import {leftMenu} from './recipes';
+import {leftMenu} from './left-menu';
+import { apiKey } from './main-content';
 
-export function getResults(searchText, createRecipeCard, getRecipeInformation) {
-    const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
-
-    window.fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchText}`)
+export function getResults(searchText, createRecipeCard) {
+    fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchText}`)
         .then(res => res.json())
         .then(data => {
             leftMenu.innerHTML = "";
