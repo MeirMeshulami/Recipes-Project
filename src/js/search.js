@@ -11,7 +11,7 @@ export function getResults(searchText, createRecipeCard) {
                     createRecipeCard(recipe);
                 });
             } else {
-                leftMenu.innerHTML = "<p>No results found</p>";
+                leftMenu.innerHTML = "<p class='titles m-4 fw-bold'>No results found</p>";
             }
         })
         .catch(error => {

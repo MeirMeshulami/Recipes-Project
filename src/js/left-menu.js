@@ -14,7 +14,7 @@ export function createRecipeCard(recipe) {
     img.classList.add("card-img-top");
 
     const textDiv = document.createElement("div");
-    textDiv.classList.add("preview-text");
+    textDiv.classList.add("preview-text","mt-2");
 
     const mainTitle = document.createElement("h4");
     mainTitle.classList.add("main-title");
@@ -22,6 +22,7 @@ export function createRecipeCard(recipe) {
 
     const secondTitle = document.createElement("p");
     secondTitle.classList.add("second-title");
+    secondTitle.textContent=recipe.title;
 
     textDiv.appendChild(mainTitle);
     textDiv.appendChild(secondTitle);
@@ -31,8 +32,6 @@ export function createRecipeCard(recipe) {
     card.appendChild(cardBody);
     leftMenu.appendChild(card);
 
-    card.setAttribute('data-image', recipe.image);
-    card.setAttribute('data-id', recipe.id);
     card.addEventListener('click', () => getRecipeInformation(recipe.id, recipe.image));
 }
 

@@ -1,7 +1,7 @@
-/* *{
+*{
     padding:0;
     margin: 0;   
-} */
+}
 .logo{
     height: 60px;
     width: 60px;
@@ -16,7 +16,7 @@
 .custom-search-input{
     width: 40%;
 }
-.left-menu{
+.left-menu,.right-menu{
     min-height: 100vh;
     background-color: #EBE3D5;
 }
@@ -77,4 +77,14 @@ h1,h5{
     color: black;
     font-size: 1.2rem;
 }
-
+.titles{
+    text-align: center;
+    color: #f38e82;
+}
+.second-title{
+   color: gray;
+}
+.main-content-title{
+    font-size: 1.5rem;
+    margin: 60px;
+}
