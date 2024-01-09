@@ -10,6 +10,11 @@ export function buildMainElements(materials, title, servingsAmount) {
     servingsSection.classList.add("d-flex", "align-items-center", "m-4", "custom-padding");
     servingsSection.innerHTML = `<i class="fa-solid fa-people-group" style="font-size: 24px;"></i>`;
 
+    const addToCart = document.createElement('button');
+    addToCart.classList.add("btn", "btn-danger", "add-to-cart-btn","m-4","justify-content-between");
+    addToCart.innerHTML = '<i class="fa-solid fa-cart-shopping"></i>';
+    addToCart.title = 'Add to shopping list'; 
+
     const servingsAmountDisplay = document.createElement("span");
     servingsAmountDisplay.textContent = servingsAmount;
     servingsAmountDisplay.classList.add("serving-text");
@@ -31,6 +36,7 @@ export function buildMainElements(materials, title, servingsAmount) {
     servingsButtons.appendChild(minusButton);
     servingsSection.appendChild(servingsAmountDisplay);
     servingsSection.appendChild(servingsButtons);
+    servingsSection.appendChild(addToCart);
 
     mainContent.appendChild(servingsSection);
 

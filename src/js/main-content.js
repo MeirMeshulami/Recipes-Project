@@ -1,10 +1,11 @@
 import { buildMainElements, buildMainFooter } from "./builder";
+import { updateShoppingList,addToShoppingList,displayShoppingList } from "./shoppingList"; 
 
-export const apiKey = 'e4e6e391a4984608ad5372d5becfb4bc';
+export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
 export const mainContent = document.querySelector('.main-content');
 let servingsAmount = 3;
 
-export function getRecipeInformation(foodID, foodImage) {
+export function getRecipeInformation(foodID,foodImage){
     mainContent.textContent = "";
 
     const foodMainImage = document.createElement("img");
@@ -21,10 +22,13 @@ export function getRecipeInformation(foodID, foodImage) {
             buildMainElements(materials, title, servingsAmount);
             displayMaterials(materials, servingsAmount);
             buildMainFooter(data.sourceUrl);
+               
+            const addToCart=document.querySelector('.add-to-cart-btn');
+            addToCart.addEventListener('click',() =>addToShoppingList(materials, servingsAmount));
         })
         .catch(error => {
             console.error('Error fetching detailed recipe information:', error);
-        });
+    });   
 }
 
 export function updateServings(materials, amount) {
