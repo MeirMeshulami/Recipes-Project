@@ -1,19 +1,21 @@
 import { buildMainElements, buildMainFooter } from "./builder";
 import { addToShoppingList} from "./shoppingList"; 
 
-export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
+//export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
+export const apiKey = 'e4e6e391a4984608ad5372d5becfb4bc';
 export const mainContent = document.querySelector('.main-content');
 let servingsAmount = 3;
 
-export function getRecipeInformation(foodID,foodImage){
+
+export function getRecipeInformation(recipe){
     mainContent.textContent = "";
 
     const foodMainImage = document.createElement("img");
     foodMainImage.classList.add("main-img", "img-fluid");
-    foodMainImage.src = foodImage;
+    foodMainImage.src = recipe.image;
     mainContent.appendChild(foodMainImage);
 
-    fetch(`https://api.spoonacular.com/recipes/${foodID}/information?apiKey=${apiKey}`)
+    fetch(`https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=${apiKey}`)
         .then(res => res.json())
         .then(data => {
             const materials = data.extendedIngredients;

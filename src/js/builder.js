@@ -1,21 +1,27 @@
 import { mainContent, updateServings } from "./main-content";
 
 export function buildMainElements(data, servingsAmount) {
-    const materials=data.extendedIngredients;
+    const header = document.createElement('div');
+    header.classList.add('d-flex', 'align-items-center', 'justify-content-between','custom-padding');
+
+    const addToCart = document.createElement('button');
+    addToCart.classList.add("btn", "btn-outline-danger", "add-to-cart-btn");
+    addToCart.innerHTML = '<i class="fa-solid fa-cart-shopping"></i>';
+    addToCart.title = 'Add to shopping list';
+
     const titleElement = document.createElement("h1");
-    titleElement.classList.add("m-4");
+    titleElement.classList.add("m-4", "text-center");
     titleElement.textContent = data.title;
-    mainContent.appendChild(titleElement);
+
+    const addToWishList = document.createElement('button');
+    addToWishList.classList.add("btn", "btn-outline-danger", "add-to-cart-btn");
+    addToWishList.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+    addToWishList.title = 'Add to Wish list';
+    
 
     const servingsSection = document.createElement("div");
     servingsSection.classList.add("d-flex", "align-items-center", "m-4", "custom-padding",'justify-content-between');
     
-
-    const addToCart = document.createElement('button');
-    addToCart.classList.add("btn", "btn-outline-danger", "add-to-cart-btn","m-4","justify-content-between");
-    addToCart.innerHTML = 'Add to list <i class="fa-solid fa-cart-shopping"></i>';
-    addToCart.title = 'Add to shopping list';
-
     const servingsAmountSection=document.createElement('div');
     servingsAmountSection.classList.add("my-auto");
     servingsAmountSection.innerHTML = `<i class="fa-solid fa-people-group" style="font-size: 24px;"></i>`;
@@ -30,26 +36,29 @@ export function buildMainElements(data, servingsAmount) {
     const plusButton = document.createElement("button");
     plusButton.classList.add("btn", "btn-outline-secondary",'border-0','text-dark','btn-sm');
     plusButton.textContent = "+";
-    plusButton.addEventListener("click", () => updateServings(materials, 1));
+    plusButton.addEventListener("click", () => updateServings(data.extendedIngredients, 1));
 
     const minusButton = document.createElement("button");
     minusButton.classList.add("btn", "btn-outline-secondary",'border-0','text-dark','btn-sm');
     minusButton.textContent = "-";
-    minusButton.addEventListener("click", () => updateServings(materials, -1));
+    minusButton.addEventListener("click", () => updateServings(data.extendedIngredients, -1));
 
     const readyInMinutes=document.createElement('p');
     readyInMinutes.classList.add("my-auto","fw-bold","serving-text");
     readyInMinutes.innerHTML=`<i class="fa-regular fa-clock"> </i> ${data.readyInMinutes} Minutes`;
-    console.log(data.readyInMinutes);
 
+    header.appendChild(addToCart);
+    header.appendChild(titleElement);
+    header.appendChild(addToWishList);
+    
     servingsAmountSection.appendChild(servingsAmountDisplay);
     servingsAmountSection.appendChild(plusButton);
     servingsAmountSection.appendChild(minusButton);
     servingsAmountSection.appendChild(servingsButtons);
     servingsSection.appendChild(servingsAmountSection);
-    servingsSection.appendChild(addToCart);
     servingsSection.appendChild(readyInMinutes);
 
+    mainContent.appendChild(header);
     mainContent.appendChild(servingsSection);
 
     const titleMaterials = document.createElement("h5");

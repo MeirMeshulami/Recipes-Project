@@ -15,7 +15,6 @@ export function displayShoppingList( shoppingList) {
             materialContainer.appendChild(itemNameElement);
 
             const amountSection = document.createElement('div');
-            amountSection.classList.add();
 
             const plusButton = document.createElement('button');
             plusButton.textContent = '+';

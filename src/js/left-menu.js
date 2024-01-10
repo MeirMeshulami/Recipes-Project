@@ -32,7 +32,7 @@ export function createRecipeCard(recipe) {
     card.appendChild(cardBody);
     leftMenu.appendChild(card);
 
-    card.addEventListener('click', () => getRecipeInformation(recipe.id, recipe.image));
+    card.addEventListener('click', () => getRecipeInformation(recipe));
 }
 
 
