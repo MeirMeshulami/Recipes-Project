@@ -1,5 +1,5 @@
 import { buildMainElements, buildMainFooter } from "./builder";
-import { updateShoppingList,addToShoppingList,displayShoppingList } from "./shoppingList"; 
+import { addToShoppingList} from "./shoppingList"; 
 
 export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
 export const mainContent = document.querySelector('.main-content');
@@ -16,10 +16,9 @@ export function getRecipeInformation(foodID,foodImage){
     fetch(`https://api.spoonacular.com/recipes/${foodID}/information?apiKey=${apiKey}`)
         .then(res => res.json())
         .then(data => {
-            const title = data.title;
             const materials = data.extendedIngredients;
 
-            buildMainElements(materials, title, servingsAmount);
+            buildMainElements(data, servingsAmount);
             displayMaterials(materials, servingsAmount);
             buildMainFooter(data.sourceUrl);
                
@@ -38,8 +37,7 @@ export function updateServings(materials, amount) {
     displayMaterials(materials, servingsAmount);
 }
 
-function displayMaterials(materials, servingsAmount) {
-    const materialsContainer = document.querySelector('.materials-container');
+function displayMaterials(materials,servingsAmount) {
     const materialsList = document.querySelector('.list-container');
 
     // If the list doesn't exist, create it

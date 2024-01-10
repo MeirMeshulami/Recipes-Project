@@ -75,7 +75,7 @@ h1,h5{
 }
 .serving-text
 {
-    margin: 20px;
+    margin: 15px;
     font-weight: bold;
     color: black;
     font-size: 1.2rem;
@@ -90,10 +90,6 @@ h1,h5{
 .main-content-title{
     font-size: 1.5rem;
     margin: 60px;
-}
-.custom-btn{
-    height: 30px;
-    width: 30px;;
 }
 .material-container{
     background-color:whitesmoke;

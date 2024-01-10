@@ -1,49 +1,47 @@
-export function displayShoppingList(shoppingList) {
+export function displayShoppingList( shoppingList) {
     const shoppingListContainer = document.querySelector('.shopping-list-container');
     shoppingListContainer.innerHTML = "";
 
     if (shoppingList.length > 0) {
         shoppingList.forEach(item => {
             const materialContainer = document.createElement('div');
-            materialContainer.classList.add('material-container', 'd-flex','justify-content-between');
+            materialContainer.classList.add('material-container', 'd-flex', 'justify-content-between');
 
-            const itemName = item.split(' ').slice(1).join(' '); // Extracting material name from item
-            const amount = parseFloat(item);
+            const itemName = item.name; 
+            const amount = item.quantity; 
 
             const itemNameElement = document.createElement('div');
             itemNameElement.textContent = itemName;
             materialContainer.appendChild(itemNameElement);
 
-            const amountSecion=document.createElement('div');
-            amountSecion.classList.add();
+            const amountSection = document.createElement('div');
+            amountSection.classList.add();
 
             const plusButton = document.createElement('button');
             plusButton.textContent = '+';
-            plusButton.classList.add('btn', 'btn-success','custom-btn');
-            plusButton.textContent="+";
-            plusButton.addEventListener('click', () => updateQuantity(item, 1));
-            amountSecion.appendChild(plusButton);
+            plusButton.classList.add('btn', 'btn-success', 'btn-sm', 'rounded-circle');
+            plusButton.addEventListener('click', () => updateQuantity(itemName, 1));
+            amountSection.appendChild(plusButton);
 
             const quantityInput = document.createElement('input');
             quantityInput.value = amount;
             quantityInput.readOnly = true;
-            quantityInput.classList.add('quantity-input','text-center');
-            quantityInput.style.width ='50px';
-            amountSecion.appendChild(quantityInput);
+            quantityInput.classList.add('quantity-input', 'text-center');
+            quantityInput.style.width = '50px';
+            amountSection.appendChild(quantityInput);
 
             const minusButton = document.createElement('button');
             minusButton.textContent = '-';
-            minusButton.classList.add('btn', 'btn-warning','custom-btn');
-            minusButton.textContent="-";
-            minusButton.addEventListener('click', () => updateQuantity(item, -1));
-            amountSecion.appendChild(minusButton);
+            minusButton.classList.add('btn', 'btn-warning', 'btn-sm', 'rounded-circle');
+            minusButton.addEventListener('click', () => updateQuantity(itemName, -1));
+            amountSection.appendChild(minusButton);
 
             const removeButton = document.createElement('button');
             removeButton.textContent = 'x';
-            removeButton.classList.add('btn', 'btn-danger','custom-btn');
-            removeButton.addEventListener('click', () => removeFromShoppingList(item));
-            amountSecion.appendChild(removeButton);
-            materialContainer.appendChild(amountSecion);
+            removeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'rounded-circle');
+            removeButton.addEventListener('click', () => removeFromShoppingList(itemName));
+            amountSection.appendChild(removeButton);
+            materialContainer.appendChild(amountSection);
 
             shoppingListContainer.appendChild(materialContainer);
         });
@@ -53,66 +51,62 @@ export function displayShoppingList(shoppingList) {
         clearBtn.textContent = "Clear list";
         clearBtn.addEventListener('click', () => {
             localStorage.removeItem('shoppingList');
-            displayShoppingList([]); // Clear the displayed shopping list
+            displayShoppingList([]);
         });
         shoppingListContainer.appendChild(clearBtn);
     }
 }
 
-function updateQuantity(item, amount) {
+
+function updateQuantity(itemName, changeAmount) {
     const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
     const updatedShoppingList = shoppingList.map(existingItem => {
-        if (existingItem.includes(item)) {
-            const regex = /\d+/;
-            const existingQuantity = parseFloat(existingItem.match(regex)[0]);
-            const newQuantity = existingQuantity + amount;
-            return `${newQuantity} ${existingItem.split(' ').slice(1).join(' ')}`;
+        if (existingItem.name === itemName) {
+            const newQuantity = Math.max(0, existingItem.quantity + changeAmount * existingItem.basicAmount);
+            return { ...existingItem, quantity: newQuantity };
         }
         return existingItem;
     });
 
-    // Save the updated shopping list in local storage
     localStorage.setItem('shoppingList', JSON.stringify(updatedShoppingList));
 
-    // Update the displayed shopping list
     displayShoppingList(updatedShoppingList);
 }
 
-function removeFromShoppingList(item) {
+function removeFromShoppingList(itemName) {
     const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
-    const updatedShoppingList = shoppingList.filter(existingItem => !existingItem.includes(item));
+    const updatedShoppingList = shoppingList.filter(existingItem => existingItem.name !== itemName);
 
-    // Save the updated shopping list in local storage
     localStorage.setItem('shoppingList', JSON.stringify(updatedShoppingList));
 
-    // Update the displayed shopping list
     displayShoppingList(updatedShoppingList);
 }
+
 
 export function addToShoppingList(materials, servingsAmount) {
     const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
 
     materials.forEach(material => {
         const itemName = `${material.unit} ${material.name}`;
-        const existingItemIndex = shoppingList.findIndex(item => item.includes(itemName));
-
+        const existingItemIndex = shoppingList.findIndex(item => item.name === itemName);
+        
         if (existingItemIndex !== -1) {
-            // Update the quantity of the existing item
             const existingItem = shoppingList[existingItemIndex];
-            const regex = /\d+/;
-            const existingQuantity = parseInt(existingItem.match(regex)[0], 10);
+            const existingQuantity = existingItem.quantity;
             const newQuantity = existingQuantity + (material.amount * servingsAmount);
-            shoppingList[existingItemIndex] = `${newQuantity} ${material.unit} ${material.name}`;
-        } else {
-            // Add the item to the shopping list
-            const newItem = `${material.amount * servingsAmount} ${material.unit} ${material.name}`;
+            shoppingList[existingItemIndex] = { ...existingItem, quantity: newQuantity };
+        } else { 
+            const newItem = {
+                name: itemName,
+                quantity: material.amount * servingsAmount,
+                unit: material.unit,
+                basicAmount: material.amount,
+            };
             shoppingList.push(newItem);
         }
     });
 
-    // Save the updated shopping list in local storage
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 
-    // Update the displayed shopping list
     displayShoppingList(shoppingList);
 }
