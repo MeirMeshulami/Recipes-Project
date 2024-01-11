@@ -1,5 +1,4 @@
 import { getRecipeInformation } from "./main-content";
-export const leftMenu = document.querySelector('.left-menu');
 
 export function createRecipeCard(recipe) {
     const card = document.createElement("button");
@@ -28,11 +27,10 @@ export function createRecipeCard(recipe) {
     textDiv.appendChild(secondTitle);
     cardBody.appendChild(img);
     cardBody.appendChild(textDiv);
-
     card.appendChild(cardBody);
-    leftMenu.appendChild(card);
-
     card.addEventListener('click', () => getRecipeInformation(recipe));
+
+    return card;
 }
 
 

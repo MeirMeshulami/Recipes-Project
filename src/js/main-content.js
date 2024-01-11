@@ -1,8 +1,8 @@
 import { buildMainElements, buildMainFooter } from "./builder";
 import { addToShoppingList} from "./shoppingList"; 
 
-//export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
-export const apiKey = 'e4e6e391a4984608ad5372d5becfb4bc';
+export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
+// export const apiKey = 'e4e6e391a4984608ad5372d5becfb4bc';
 export const mainContent = document.querySelector('.main-content');
 let servingsAmount = 3;
 
@@ -17,15 +17,17 @@ export function getRecipeInformation(recipe){
 
     fetch(`https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=${apiKey}`)
         .then(res => res.json())
-        .then(data => {
-            const materials = data.extendedIngredients;
+        .then(recipeData => {
+            const materials = recipeData.extendedIngredients;
 
-            buildMainElements(data, servingsAmount);
+            const materialsContainer = document.querySelector(".materials-container");
+            if(!materialsContainer){
+                buildMainElements(recipeData, servingsAmount);
+            }            
             displayMaterials(materials, servingsAmount);
-            buildMainFooter(data.sourceUrl);
+            buildMainFooter(recipeData.sourceUrl);
                
-            const addToCart=document.querySelector('.add-to-cart-btn');
-            addToCart.addEventListener('click',() =>addToShoppingList(materials, servingsAmount));
+            document.querySelector('.add-to-cart-btn').addEventListener('click',() =>addToShoppingList(materials, servingsAmount));
         })
         .catch(error => {
             console.error('Error fetching detailed recipe information:', error);
@@ -42,16 +44,13 @@ export function updateServings(materials, amount) {
 function displayMaterials(materials,servingsAmount) {
     const materialsList = document.querySelector('.list-container');
 
-    // If the list doesn't exist, create it
     if (!materialsList) {
         createMaterialsList(materials, servingsAmount);
         return;
     }
 
-    // Select all existing li elements
     const materialItems = document.querySelectorAll('.list-group-item');
 
-    // Update the content of each li element
     materialItems.forEach((materialItem, index) => {
         const material = materials[index];
         materialItem.innerHTML = `<i class="fas fa-check" style="margin-right: 10px;"></i> ${material.amount * servingsAmount} ${material.unit} ${material.name}`;

@@ -1,24 +1,25 @@
 import { mainContent, updateServings } from "./main-content";
+import { addToWishList } from "./wishlist";
 
-export function buildMainElements(data, servingsAmount) {
+export function buildMainElements(recipeData, servingsAmount) {
     const header = document.createElement('div');
     header.classList.add('d-flex', 'align-items-center', 'justify-content-between','custom-padding');
 
-    const addToCart = document.createElement('button');
-    addToCart.classList.add("btn", "btn-outline-danger", "add-to-cart-btn");
-    addToCart.innerHTML = '<i class="fa-solid fa-cart-shopping"></i>';
-    addToCart.title = 'Add to shopping list';
+    const addToCartBtn = document.createElement('button');
+    addToCartBtn.classList.add("btn", "btn-outline-danger", "add-to-cart-btn");
+    addToCartBtn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i>';
+    addToCartBtn.title = 'Add to shopping list';
 
     const titleElement = document.createElement("h1");
     titleElement.classList.add("m-4", "text-center");
-    titleElement.textContent = data.title;
-
-    const addToWishList = document.createElement('button');
-    addToWishList.classList.add("btn", "btn-outline-danger", "add-to-cart-btn");
-    addToWishList.innerHTML = `<i class="fa-solid fa-heart"></i>`;
-    addToWishList.title = 'Add to Wish list';
+    titleElement.textContent = recipeData.title;
     
-
+    const addToWishListBtn = document.createElement('button');
+    addToWishListBtn.classList.add("btn", "btn-outline-danger", "add-to-wishList-btn");
+    addToWishListBtn.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+    addToWishListBtn.title = 'Add to Wish list';
+    addToWishListBtn.addEventListener('click',() =>addToWishList(recipeData));
+    
     const servingsSection = document.createElement("div");
     servingsSection.classList.add("d-flex", "align-items-center", "m-4", "custom-padding",'justify-content-between');
     
@@ -36,20 +37,20 @@ export function buildMainElements(data, servingsAmount) {
     const plusButton = document.createElement("button");
     plusButton.classList.add("btn", "btn-outline-secondary",'border-0','text-dark','btn-sm');
     plusButton.textContent = "+";
-    plusButton.addEventListener("click", () => updateServings(data.extendedIngredients, 1));
+    plusButton.addEventListener("click", () => updateServings(recipeData.extendedIngredients, 1));
 
     const minusButton = document.createElement("button");
     minusButton.classList.add("btn", "btn-outline-secondary",'border-0','text-dark','btn-sm');
     minusButton.textContent = "-";
-    minusButton.addEventListener("click", () => updateServings(data.extendedIngredients, -1));
+    minusButton.addEventListener("click", () => updateServings(recipeData.extendedIngredients, -1));
 
     const readyInMinutes=document.createElement('p');
     readyInMinutes.classList.add("my-auto","fw-bold","serving-text");
-    readyInMinutes.innerHTML=`<i class="fa-regular fa-clock"> </i> ${data.readyInMinutes} Minutes`;
+    readyInMinutes.innerHTML=`<i class="fa-regular fa-clock"> </i> ${recipeData.readyInMinutes} Minutes`;
 
-    header.appendChild(addToCart);
+    header.appendChild(addToCartBtn);
     header.appendChild(titleElement);
-    header.appendChild(addToWishList);
+    header.appendChild(addToWishListBtn);
     
     servingsAmountSection.appendChild(servingsAmountDisplay);
     servingsAmountSection.appendChild(plusButton);
@@ -64,16 +65,6 @@ export function buildMainElements(data, servingsAmount) {
     const titleMaterials = document.createElement("h5");
     titleMaterials.textContent = "RECIPE INGREDIENTS";
     mainContent.appendChild(titleMaterials);
-
-    const materialsContainer = document.querySelector(".materials-container");
-
-    if (!materialsContainer) {
-        const materialsContainer = document.createElement("div");
-        materialsContainer.classList.add("materials-container");
-        mainContent.appendChild(materialsContainer);
-    } else {
-        displayMaterials(materials, servingsAmount);
-    }
 }
 
 export function buildMainFooter(directions) {

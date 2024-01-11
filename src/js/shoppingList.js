@@ -81,7 +81,6 @@ function removeFromShoppingList(itemName) {
     displayShoppingList(updatedShoppingList);
 }
 
-
 export function addToShoppingList(materials, servingsAmount) {
     const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
 

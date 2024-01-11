@@ -50,6 +50,7 @@
     background-color: #F3EEEA;
     border-radius: 0px;
     width: 100%;
+    display: block;
 }
 .card-body p{
     font-size: 15px;
@@ -96,3 +97,24 @@ h1,h5{
     border: 1px solid gray;
     padding: 10px;
 }
+.wishList-hover-btn:hover {
+    background-color: whitesmoke;
+    color: red;
+}
+.card:hover {
+    background-color: whitesmoke;
+}
+.wish-list-container {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    opacity: 0.8;
+}
+.hover-section:hover .wish-list-container{
+    display: block;
+}
+
+
+
+  
