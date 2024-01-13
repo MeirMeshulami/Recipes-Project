@@ -3,3 +3,16 @@
   <h1 align="center">Welcome👋 to my Recipes Project</h1>
 
 </p>
+## Overview
+
+The Recipes Project is a recipe website where users can explore, save to a wishlist, manage shopping lists, and access cooking instructions. Key features include recipe search, wishlist, shopping list with quantity adjustment, cooking directions, and flavor information.
+
+![Your Project Name](./images/website.png)
+
+## Installation
+
+```bash
+git clone https://github.com/MeirMeshulami/Recipes-Project.git
+cd Recipes-Project
+npm install
+npm start
