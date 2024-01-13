@@ -58,7 +58,7 @@ export function displayShoppingList( shoppingList) {
 
 
 function updateQuantity(itemName, changeAmount) {
-    const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+    const shoppingList = getShoppingList();
     const updatedShoppingList = shoppingList.map(existingItem => {
         if (existingItem.name === itemName) {
             const newQuantity = Math.max(0, existingItem.quantity + changeAmount * existingItem.basicAmount);
@@ -73,7 +73,7 @@ function updateQuantity(itemName, changeAmount) {
 }
 
 function removeFromShoppingList(itemName) {
-    const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+    const shoppingList = getShoppingList();
     const updatedShoppingList = shoppingList.filter(existingItem => existingItem.name !== itemName);
 
     localStorage.setItem('shoppingList', JSON.stringify(updatedShoppingList));
@@ -82,7 +82,7 @@ function removeFromShoppingList(itemName) {
 }
 
 export function addToShoppingList(materials, servingsAmount) {
-    const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+    const shoppingList = getShoppingList();
 
     materials.forEach(material => {
         const itemName = `${material.unit} ${material.name}`;
@@ -107,4 +107,8 @@ export function addToShoppingList(materials, servingsAmount) {
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 
     displayShoppingList(shoppingList);
+}
+
+function getShoppingList() {
+    return JSON.parse(localStorage.getItem('shoppingList')) || [];
 }
