@@ -1,5 +1,5 @@
 import { mainContent, updateServings } from "./main-content";
-import { addToWishList,initiallyBtnStyle } from "./wishlist";
+import { addToWishList,initiallyBtnStyle } from "./wishListFuncs";
 import { apiKey } from "./main-content";
 
 export function buildMainElements(recipeData, servingsAmount) {
@@ -102,18 +102,15 @@ export function buildTasteSection(recipeId) {
         const flavorElement = document.createElement('div');
         flavorElement.classList.add('text-center','d-flex','flex-column','justify-content-between'); 
 
-        // Create and append the title
         const titleElement = document.createElement('p');
         titleElement.classList.add('icon-titles');
         titleElement.textContent = title;
         flavorElement.appendChild(titleElement);
 
-        // Create and append the content (icon or image)
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         flavorElement.appendChild(contentElement);
 
-        // Create and append the rating paragraph
         const ratingElement = document.createElement('p');
         ratingElement.classList.add('rating-element','icon-titles');
         flavorElement.appendChild(ratingElement);
