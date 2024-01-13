@@ -18,7 +18,6 @@ function handleSearch() {
 searchBtn.addEventListener('click', handleSearch);
 
 textBox.addEventListener('keydown', (event) => {
-    console.log('Key pressed:', event.key);
     
     if (event.key === 'Enter') {
         event.preventDefault();
