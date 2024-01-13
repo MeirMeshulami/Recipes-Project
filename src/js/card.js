@@ -2,7 +2,7 @@ import { getRecipeInformation } from "./main-content";
 
 export function createRecipeCard(recipe) {
     const card = document.createElement("button");
-    card.classList.add("card", "recipe-card", "btn");
+    card.classList.add("card", "recipe-card", "btn", `recipe-card-${recipe.id}`);
 
     const cardBody = document.createElement("div");
     cardBody.classList.add("card-body", "d-flex");

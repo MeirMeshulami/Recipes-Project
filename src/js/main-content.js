@@ -1,5 +1,6 @@
 import { buildMainElements, buildMainFooter } from "./builder";
 import { addToShoppingList} from "./shoppingList"; 
+import { buildTasteSection } from "./builder";
 
 export const apiKey = '1f74624cab934a19a54b3c8b3b0313ea';
 // export const apiKey = 'e4e6e391a4984608ad5372d5becfb4bc';
@@ -24,8 +25,9 @@ export function getRecipeInformation(recipe){
             if(!materialsContainer){
                 buildMainElements(recipeData, servingsAmount);
             }            
-            displayMaterials(materials, servingsAmount);
+            displayMaterials(materials, servingsAmount);           
             buildMainFooter(recipeData.sourceUrl);
+            buildTasteSection(recipeData.id);
                
             document.querySelector('.add-to-cart-btn').addEventListener('click',() =>addToShoppingList(materials, servingsAmount));
         })

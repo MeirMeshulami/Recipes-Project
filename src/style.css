@@ -114,6 +114,10 @@ h1,h5{
 .hover-section:hover .wish-list-container{
     display: block;
 }
+.icon-titles{
+    font-size: 0.6rem;
+    margin: 10px 0px;
+}
 
 
 

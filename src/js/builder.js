@@ -1,5 +1,6 @@
 import { mainContent, updateServings } from "./main-content";
-import { addToWishList } from "./wishlist";
+import { addToWishList,initiallyBtnStyle } from "./wishlist";
+import { apiKey } from "./main-content";
 
 export function buildMainElements(recipeData, servingsAmount) {
     const header = document.createElement('div');
@@ -13,12 +14,6 @@ export function buildMainElements(recipeData, servingsAmount) {
     const titleElement = document.createElement("h1");
     titleElement.classList.add("m-4", "text-center");
     titleElement.textContent = recipeData.title;
-    
-    const addToWishListBtn = document.createElement('button');
-    addToWishListBtn.classList.add("btn", "btn-outline-danger", "add-to-wishList-btn");
-    addToWishListBtn.innerHTML = `<i class="fa-solid fa-heart"></i>`;
-    addToWishListBtn.title = 'Add to Wish list';
-    addToWishListBtn.addEventListener('click',() =>addToWishList(recipeData));
     
     const servingsSection = document.createElement("div");
     servingsSection.classList.add("d-flex", "align-items-center", "m-4", "custom-padding",'justify-content-between');
@@ -47,6 +42,13 @@ export function buildMainElements(recipeData, servingsAmount) {
     const readyInMinutes=document.createElement('p');
     readyInMinutes.classList.add("my-auto","fw-bold","serving-text");
     readyInMinutes.innerHTML=`<i class="fa-regular fa-clock"> </i> ${recipeData.readyInMinutes} Minutes`;
+
+    const addToWishListBtn = document.createElement('button');
+    addToWishListBtn.classList.add("btn","add-to-wishlist-btn");
+    initiallyBtnStyle(addToWishListBtn,recipeData);
+    addToWishListBtn.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+    addToWishListBtn.title = 'Add to Wish list';
+    addToWishListBtn.addEventListener('click',() =>addToWishList(addToWishListBtn,recipeData));
 
     header.appendChild(addToCartBtn);
     header.appendChild(titleElement);
@@ -90,4 +92,65 @@ export function buildMainFooter(directions) {
     dirBtn.addEventListener('click', () => {
         window.open(directions, '_blank');
     });
+}
+
+export function buildTasteSection(recipeId) {
+    const tasteSection = document.createElement('div');
+    tasteSection.classList.add( 'd-flex', 'justify-content-between', 'custom-padding','my-4'); 
+
+    const createFlavorElement = (title, content) => {
+        const flavorElement = document.createElement('div');
+        flavorElement.classList.add('text-center','d-flex','flex-column','justify-content-between'); 
+
+        // Create and append the title
+        const titleElement = document.createElement('p');
+        titleElement.classList.add('icon-titles');
+        titleElement.textContent = title;
+        flavorElement.appendChild(titleElement);
+
+        // Create and append the content (icon or image)
+        const contentElement = document.createElement('div');
+        contentElement.innerHTML = content;
+        flavorElement.appendChild(contentElement);
+
+        // Create and append the rating paragraph
+        const ratingElement = document.createElement('p');
+        ratingElement.classList.add('rating-element','icon-titles');
+        flavorElement.appendChild(ratingElement);
+
+        return flavorElement;
+    };
+
+    const spiciness = createFlavorElement('Spiciness', '<i class="fa-solid fa-pepper-hot"></i>');
+    const fattiness = createFlavorElement('Fattiness', '<img src="../images/trans-fat.png">');
+    const savoriness = createFlavorElement('Savoriness', '<img src="../images/savory.png">');
+    const bitterness = createFlavorElement('Bitterness', '<img src="../images/bitter-gourd.png">');
+    const sourness = createFlavorElement('Sourness', '<img src="../images/sourness.png">');
+    const saltiness = createFlavorElement('Saltiness', '<img src="../images/salt.png">');
+    const sweetness = createFlavorElement('Sweetness', '<img src="../images/cupcake.png">');
+
+    tasteSection.appendChild(spiciness);
+    tasteSection.appendChild(fattiness);
+    tasteSection.appendChild(savoriness);
+    tasteSection.appendChild(bitterness);
+    tasteSection.appendChild(sourness);
+    tasteSection.appendChild(saltiness);
+    tasteSection.appendChild(sweetness);
+
+    mainContent.appendChild(tasteSection);
+
+    fetch(`https://api.spoonacular.com/recipes/${recipeId}/tasteWidget.json?apiKey=${apiKey}`)
+        .then(res => res.json())
+        .then(recipeData => {           
+            spiciness.querySelector('.rating-element').textContent = `Rating: ${recipeData.spiciness}`;
+            fattiness.querySelector('.rating-element').textContent = `Rating: ${recipeData.fattiness}`;
+            savoriness.querySelector('.rating-element').textContent = `Rating: ${recipeData.savoriness}`;
+            bitterness.querySelector('.rating-element').textContent = `Rating: ${recipeData.bitterness}`;
+            sourness.querySelector('.rating-element').textContent = `Rating: ${recipeData.sourness}`;
+            saltiness.querySelector('.rating-element').textContent = `Rating: ${recipeData.saltiness}`;
+            sweetness.querySelector('.rating-element').textContent = `Rating: ${recipeData.sweetness}`;
+        })
+        .catch(error => {
+            console.error('Error fetching detailed recipe information:', error);
+        });
 }

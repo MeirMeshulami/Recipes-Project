@@ -47,7 +47,7 @@ export function displayShoppingList( shoppingList) {
 
         const clearBtn = document.createElement('button');
         clearBtn.classList.add("btn", "btn-outline-secondary", "mx-auto", "mt-3");
-        clearBtn.textContent = "Clear list";
+        clearBtn.innerHTML = 'Clear list <i class="fa-solid fa-trash-can"></i>';
         clearBtn.addEventListener('click', () => {
             localStorage.removeItem('shoppingList');
             displayShoppingList([]);
