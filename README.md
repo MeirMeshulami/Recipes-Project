@@ -7,9 +7,7 @@
 
 The Recipes Project is a recipe website where users can explore, save to a wishlist, manage shopping lists, and access cooking instructions. Key features include recipe search, wishlist, shopping list with quantity adjustment, cooking directions, and flavor information.
 
-<p align="center">
-  <img src="./images/website.png" alt="Recipes Project" style="width: 50%;">
-</p>
+
 
 ## Installation
 
