@@ -122,7 +122,7 @@ export function buildTasteSection(recipeId) {
     const fattiness = createFlavorElement('Fattiness', '<img src="./images/trans-fat.png">');
     const savoriness = createFlavorElement('Savoriness', '<img src="./images/savory.png">');
     const bitterness = createFlavorElement('Bitterness', '<img src="./images/bitter-gourd.png">');
-    const sourness = createFlavorElement('Sourness', '<img src="../images/sourness.png">');
+    const sourness = createFlavorElement('Sourness', '<img src="./images/sourness.png">');
     const saltiness = createFlavorElement('Saltiness', '<img src="./images/salt.png">');
     const sweetness = createFlavorElement('Sweetness', '<img src="./images/cupcake.png">');
 
