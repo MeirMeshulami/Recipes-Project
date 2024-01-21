@@ -15,4 +15,4 @@ The Recipes Project is a recipe website where users can explore, save to a wishl
 git clone https://github.com/MeirMeshulami/Recipes-Project.git
 cd Recipes-Project
 npm install
-npm start
+
