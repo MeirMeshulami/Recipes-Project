@@ -1,11 +1,10 @@
 import { getResults } from './search';
 import { createRecipeCard } from './card';
 import { getRecipeInformation } from './main-content';
-import { displayShoppingList } from './shoppingList';
+import { displayShoppingList,getShoppingList } from './shoppingList';
 import { displayWishList } from './wishListFuncs';
 
-const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
-displayShoppingList(shoppingList);
+displayShoppingList(getShoppingList());
 displayWishList();
 
 const searchBtn = document.querySelector('.search-btn');

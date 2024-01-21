@@ -56,7 +56,6 @@ export function displayShoppingList( shoppingList) {
     }
 }
 
-
 function updateQuantity(itemName, changeAmount) {
     const shoppingList = getShoppingList();
     const updatedShoppingList = shoppingList.map(existingItem => {
@@ -109,6 +108,6 @@ export function addToShoppingList(materials, servingsAmount) {
     displayShoppingList(shoppingList);
 }
 
-function getShoppingList() {
+export function getShoppingList() {
     return JSON.parse(localStorage.getItem('shoppingList')) || [];
 }
